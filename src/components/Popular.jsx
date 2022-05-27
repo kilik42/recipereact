@@ -87,6 +87,13 @@ const Wrapper = styled.div`
             transform: translateX(-50%, 0);
             color: white;
             width: 100%;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
   `;
 
