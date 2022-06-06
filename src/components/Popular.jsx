@@ -4,55 +4,62 @@ import {Splide, SplideSlide} from "@splidejs/react-splide";
 import '@splidejs/splide/dist/css/splide.min.css';
 function Popular() {
 
-
+const [popular, setPopular] = useState([]);
     useEffect(() => {
         getPopular();
     }, []);
 
-    const [popular, setPopular] = React.useState([]);
+    
     const getPopular = async() => {
-            const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_KEY}&number=10&tags=vegetarian`)
-            const data = await api.json();
-            console.log(data);
-            setPopular(data.recipes)
-            // return data;
 
-        }
+            //local storage
+            const check = localStorage.getItem("popular");
+            if(check){
+                setPopular(JSON.parse(check));
+
+            } else{
+                const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_KEY}&number=10&tags=vegetarian`);
+                const data = await api.json();
+                console.log(data.recipes);
+                localStorage.setItem("popular", JSON.stringify(data.recipes));
+                setPopular(data.recipes)
+                // return data;
+            }
+
+        };
 
 
   return (
     <div>
-        
-            
+
                 <Wrapper>
                     <h3>Popular Picks</h3>
-                    <Splide options={{
+                    <Splide 
+                    options={{
                         perPage: 4,
                         arrows: false,
                         pagination: false,
                         drag: 'free',
                         gap: "5rem",
-                    }}>
+                    }}
+                    >
                         {popular.map((recipe) => {
                             return (
-                        <SplideSlide>
+                        <SplideSlide key={recipe.id}>  
                             <Card>
-                                <div className="card" key={recipe.id}>
-                                    <img src={recipe.image} alt="recipe" />
-                                    <div className="card-content">
+                                <div  >  
+                                <img src={recipe.image} alt="recipe" />
+                                 <Gradient/>
                                         <h3>{recipe.title}</h3>
+                                        
                                         <p>{recipe.readyInMinutes} minutes</p>
-                                    </div>
-                                </div>
+                                </div>     
                             </Card>
                         </SplideSlide>
                         );
                         })} 
                     </Splide>
                 </Wrapper>
-            
-                        
-        
     </div>
   )
 }
@@ -82,8 +89,24 @@ const Wrapper = styled.div`
         p{
             position: absolute;
             z-index: 1;
-            left: 50%;
+            left: 3%;
             bottom: 0;
+            transform: translateX(-50%, 0);
+            color: white;
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h3{
+            position: absolute;
+            z-index: 1;
+            left: 5%;
+            bottom: 2;
             transform: translateX(-50%, 0);
             color: white;
             width: 100%;
@@ -97,5 +120,12 @@ const Wrapper = styled.div`
         }
   `;
 
-
+const Gradient = styled.div `
+    position: absolute;
+    z-index: 3;
+    height: 100%;
+  width: 100%;
+  background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.5));
+  
+  `
 export default Popular
