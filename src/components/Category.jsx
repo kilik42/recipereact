@@ -34,7 +34,7 @@ const List = styled.div`
     justify-content: center;
     margin: 2rem 0rem;
 `
-const Slink = styled(NavLink)`
+const SLink = styled(NavLink)`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,7 +55,17 @@ const Slink = styled(NavLink)`
     svg{
         color: white;
         font-size: 1.5rem;
-        
+
+    }
+    &:hover{
+        background: linear-gradient(to right, #f27121, #e94057);
+
+        svg{
+            color: white;
+        }
+        h4{
+            colro: white;
+        }
     }
     `
 
