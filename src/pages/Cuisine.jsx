@@ -20,18 +20,18 @@ function Cuisine() {
     console.log(params);
   },[params.type]);
 
-  return 
+  return (
     <Grid>
       {cuisine.map((item) => {
         return (
           <Card key={item.id}>
-            <img src={item.img} alt=""/>
+            <img src={item.image} alt=""/>
             <h4>{item.title}</h4>
           </Card>
-      )})}
+      );})}
       
       </Grid>
-  
+  )
 }
 
 const Grid = styled.div`
