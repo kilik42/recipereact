@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Searched = () => {
 
   const [searchedRecipes, setSearchedRecipes] = useState([]);
+  const [cuisine, setCuisine] = useState('');
   let params = useParams();
 
   const getSearched = async (name) => {
